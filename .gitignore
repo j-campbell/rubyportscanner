@@ -1,1 +1,4 @@
-./demos/*
+# project specific - please us global git ignore 
+# for language and OS specific git ignores
+demos/*
+Gemfile.lock
