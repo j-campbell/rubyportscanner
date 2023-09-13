@@ -35,7 +35,7 @@ class PortScanner
           combobox {
             label "Mode"
             items ["select mode", "one", "two"]
-            selected 2
+            selected 0
           }
         }
 
@@ -69,10 +69,12 @@ asdfasdfasdfasdfasdfasdfasdfasdf
         horizontal_box {
           button('Saved') {
             # stretchy false
-            puts @entry_text
+            
 
             on_clicked do
               self.text_box = 'Saved!'
+              puts @entry_text
+              
             end
           }
           button('Clear') {

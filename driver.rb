@@ -14,16 +14,16 @@ class PortScan
   def initialize(port_start, port_end, target="127.0.0.1")
 
     self.port_start = port_start
-    self.port_end   = port_end #|| 8080
+    self.port_end   = port_end
     self.target     = target
   end
 
-  # def validate? 
+  # def validate?         # write once core code works for valid inputs
   #   puts "yeah"
   #   return true
   # end
 
-  # def print_ports
+  # def print_ports       # debug method
   #   # puts self.port_start
   #   # puts self.port_end
   #   # puts self.target if self.target
@@ -41,20 +41,20 @@ class PortScan
   end
 
   def tcp_socket host, port
+    out = []
     begin
-      out = []
       socket = TCPSocket.new(host, port)
       out << ["#{host}:#{port}", status = "open"]
       puts out
       out
     rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT
-      status = "closed"
+      # status = "closed"
       out << ["#{host}:#{port}", status="closed"]
     end
   end
 end
 
-io = PortScan.new(70,81)
+io = PortScan.new(10,30)
 # io.scan_target
 str_arr = []
 # io.validate?
@@ -86,7 +86,7 @@ str_arr = []
 # io = PortScan.new(1, 1024)
 rts = [""]
 rts << io.scan_target
-puts rts.join("!!!")
+puts rts.join("\n")
 rts
 # puts rts.join('!!')+ "<"
 # # puts tr_arr
