@@ -11,6 +11,7 @@ entries = {
 class PortScan
   attr_accessor :port_start, :port_end, :target
 
+  # development environment -- turn off $TARGET default and change to *optional for production
   def initialize(port_start, port_end, target="127.0.0.1")
 
     self.port_start = port_start
@@ -36,7 +37,7 @@ class PortScan
     # puts f_port, l_port, target
     # puts "debug mode><><"
     # (f_port..l_port).each {|p| puts p}
-    str_arr << (f_port..l_port).map {|p| tcp_socket(target, p) }
+    str_arr << (f_port..l_port).map {|p| tcp_socket(self.target, p) }
     return str_arr
   end
 
@@ -47,7 +48,7 @@ class PortScan
       out << "#{host}:#{port}#open"
       # out << [host: {port: "1"}]
       # puts out
-      out
+      # out
     rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT
       # status = "closed"
       out << "#{host}:#{port}#closed"
@@ -57,7 +58,7 @@ class PortScan
     end
   end
 end
-
+puts entries['port_start'].nil?
 io = PortScan.new(10,30)
 # io.scan_target
 # str_arr = []
@@ -95,7 +96,7 @@ rts << io.scan_target
 #   puts e, i
 #   i += 1
 # end
-rts.each {|k,v| puts k}
+rts.each {|k,v| puts k,v}
 # puts rts[1]
 # puts rts.join('!!')+ "<"
 # # puts tr_arr
