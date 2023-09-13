@@ -44,19 +44,23 @@ class PortScan
     out = []
     begin
       socket = TCPSocket.new(host, port)
-      out << ["#{host}:#{port}", status = "open"]
-      puts out
+      out << "#{host}:#{port}#open"
+      # out << [host: {port: "1"}]
+      # puts out
       out
     rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT
       # status = "closed"
-      out << ["#{host}:#{port}", status="closed"]
+      out << "#{host}:#{port}#closed"
+      # out << {"#{host}:#{port}": status="closed"}
+      # out << [host: {port: "1"}]
+      # out << 'e'
     end
   end
 end
 
 io = PortScan.new(10,30)
 # io.scan_target
-str_arr = []
+# str_arr = []
 # io.validate?
 # io.print_ports
 # puts "pre<<<<<"
@@ -84,10 +88,15 @@ str_arr = []
 
 # puts "test 3"
 # io = PortScan.new(1, 1024)
-rts = [""]
+rts = []
 rts << io.scan_target
-puts rts.join("\n")
-rts
+# i = 0
+# rts.each do |e|
+#   puts e, i
+#   i += 1
+# end
+rts.each {|k,v| puts k}
+# puts rts[1]
 # puts rts.join('!!')+ "<"
 # # puts tr_arr
 ## J .Campbell SID : ##
