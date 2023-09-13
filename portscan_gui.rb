@@ -17,7 +17,6 @@ class PortScanner
       margined true
       vertical_box {
         form {
-          # stretchy true
           entry {
             label "Target IP/URL"
             text <=> [self, :target]
@@ -60,7 +59,6 @@ asdfasdfasdfasdfasdfasdfasdfasdf
         }
         
         vertical_box {
-          # stretchy true
           multiline_entry {  
             text <=> [self, :text_box]
           }
@@ -68,7 +66,6 @@ asdfasdfasdfasdfasdfasdfasdfasdf
 
         horizontal_box {
           button('Saved') {
-            # stretchy false
             puts @entry_text
 
             on_clicked do
@@ -76,7 +73,6 @@ asdfasdfasdfasdfasdfasdfasdfasdf
             end
           }
           button('Clear') {
-            # stretchy false
 
             on_clicked do
               self.text_box = ''
