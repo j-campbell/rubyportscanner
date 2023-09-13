@@ -2,7 +2,7 @@
 require 'socket'
 # require 'os'
 
-entries = {
+@entries = {
   'port_start': "20",
   'port_end': "1024",
   'target': "192.168.0.1"
@@ -14,8 +14,8 @@ class PortScan
   # development environment -- turn off $TARGET default and change to *optional for production
   def initialize(port_start, port_end, target="127.0.0.1")
 
-    self.port_start = port_start
-    self.port_end   = port_end
+    self.port_start = port_start.to_i
+    self.port_end   = port_end.to_i
     self.target     = target
   end
 
@@ -58,8 +58,9 @@ class PortScan
     end
   end
 end
-puts entries['port_start'].nil?
-io = PortScan.new(10,30)
+puts @entries[:port_start].nil?
+puts @entries[:port_start]
+io = PortScan.new(@entries[:port_start],@entries[:port_end])
 # io.scan_target
 # str_arr = []
 # io.validate?
@@ -91,13 +92,15 @@ io = PortScan.new(10,30)
 # io = PortScan.new(1, 1024)
 rts = []
 rts << io.scan_target
+puts rts
 # i = 0
 # rts.each do |e|
 #   puts e, i
 #   i += 1
 # end
-rts.each {|k,v| puts k,v}
+# rts.each {|k,v| puts k,v}
 # puts rts[1]
 # puts rts.join('!!')+ "<"
 # # puts tr_arr
 ## J .Campbell SID : ##
+puts @entries[:port_start]
