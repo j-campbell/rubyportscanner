@@ -1,6 +1,6 @@
 # ruby port scanner code
 require 'socket'
-require 'os'
+# require 'os'
 
 entries = {
   'port_start': "20",
@@ -18,23 +18,24 @@ class PortScan
     self.target     = target
   end
 
-  def validate? 
-    puts "yeah"
-    return true
-  end
+  # def validate? 
+  #   puts "yeah"
+  #   return true
+  # end
 
-  def print_ports
-    # puts self.port_start
-    # puts self.port_end
-    # puts self.target if self.target
+  # def print_ports
+  #   # puts self.port_start
+  #   # puts self.port_end
+  #   # puts self.target if self.target
 
-  end
+  # end
 
-  def scan_target (f_port=self.port_start, l_port=self.port_end, target=self.target)
+  def scan_target 
     str_arr = []
+    f_port, l_port = self.port_start, self.port_end
     # puts f_port, l_port, target
-    puts "debug mode><><"
-    (f_port..l_port).each {|p| puts p}
+    # puts "debug mode><><"
+    # (f_port..l_port).each {|p| puts p}
     str_arr << (f_port..l_port).map {|p| tcp_socket(target, p) }
     return str_arr
   end
@@ -44,6 +45,8 @@ class PortScan
       out = []
       socket = TCPSocket.new(host, port)
       out << ["#{host}:#{port}", status = "open"]
+      puts out
+      out
     rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT
       status = "closed"
       out << ["#{host}:#{port}", status="closed"]
@@ -51,10 +54,11 @@ class PortScan
   end
 end
 
-io = PortScan.new(20,30)
+io = PortScan.new(70,81)
+# io.scan_target
 str_arr = []
-io.validate?
-io.print_ports
+# io.validate?
+# io.print_ports
 # puts "pre<<<<<"
 # str_arr << io.tcp_socket("127.0.0.1", 22).to_s
 # str_arr << io.tcp_socket("127.0.0.1", 23).to_s
@@ -81,7 +85,9 @@ io.print_ports
 # puts "test 3"
 # io = PortScan.new(1, 1024)
 rts = [""]
-puts io.scan_target( "20", "30")
-puts rts.join('!!')+ "<"
+rts << io.scan_target
+puts rts.join("!!!")
+rts
+# puts rts.join('!!')+ "<"
 # # puts tr_arr
 ## J .Campbell SID : ##
