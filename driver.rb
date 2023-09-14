@@ -11,7 +11,9 @@ def brick_breaker str_in
   # str_in.remove('[', ']')
   # status = str_in.split('#')[0]
   # puts str_in
-  str_in.split('#')
+  k = str_in.split('#').last
+  # return k
+#   str_in[0].join()
 end
 
 @entries = {
@@ -77,8 +79,10 @@ rts = io.scan_target
 # puts rts.to_s + "<<<<"
 rts.flatten!
 # puts rts
-s_out = (brick_breaker rts[0])
-puts s_out[1]
+s_out = "target<<<<<"
+puts (brick_breaker rts[0])
+puts k =( brick_breaker (rts).each)
+puts s_out
 # puts s_out[0]
 # puts " <<<< "
 # io.each {|i| puts i} # io is an object not a collection class
