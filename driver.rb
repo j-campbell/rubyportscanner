@@ -58,47 +58,18 @@ class PortScan
     end
   end
 end
-# puts @entries[:port_start].nil?
-# puts @entries[:port_start]
+
 io = PortScan.new(@entries[:port_start],@entries[:port_end])
-# io.scan_target
-# str_arr = []
-# io.validate?
-# io.print_ports
-# puts "pre<<<<<"
-# str_arr << io.tcp_socket("127.0.0.1", 22).to_s
-# str_arr << io.tcp_socket("127.0.0.1", 23).to_s
-# str_arr << io.scan_target
-# str_arr << io.scan_target
-# str_arr << io.scan_target
-# str_arr << io.scan_target
-# puts "begin"
-# puts str_arr
-# puts "end"
-# str_arr = ""
-# puts str_arr + "end code" + ">>>>"
 
-# # puts "test 1"
-# # io = PortScan.new(entries[:port_start], entries[:port_end], entries[:target])
-# # io.print_ports
+# rts = []
+# rts << io.scan_target
+# rts.each {|e|}
+# rts.inspect
 
 
-# # puts "test 2"
-# io = PortScan.new(entries[:port_start], entries[:port_end])
-# # io.print_ports
-
-
-# puts "test 3"
-# io = PortScan.new(1, 1024)
-rts = []
-rts << io.scan_target
-rts.each {|e|}
-rts.inspect
-
-
-io = PortScan.new("20",@entries[:port_end], "8.8.8.8")
-puts rts
-puts " <<<< "
+# io = PortScan.new("20",@entries[:port_end], "8.8.8.8")
+# puts rts
+# puts " <<<< "
 # io.each {|i| puts i} # io is an object not a collection class
 
 def brick_breaker
