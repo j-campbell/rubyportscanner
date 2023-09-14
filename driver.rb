@@ -2,9 +2,21 @@
 require 'socket'
 # require 'os'
 
+# def brick_breaker str
+#   str = str.split '#'
+# end
+
+def brick_breaker str_in
+  # str_in = str_in[0]
+  # str_in.remove('[', ']')
+  # status = str_in.split('#')[0]
+  # puts str_in
+  str_in.split('#')
+end
+
 @entries = {
   'port_start': "20",
-  'port_end': "1024",
+  'port_end': "30",
   'target': "192.168.0.1"
 }
 
@@ -38,7 +50,7 @@ class PortScan
     # puts "debug mode><><"
     # (f_port..l_port).each {|p| puts p}
     str_arr << (f_port..l_port).map {|p| tcp_socket(self.target, p) }
-    return str_arr
+    return str_arr[0]
   end
 
   def tcp_socket host, port
@@ -46,31 +58,28 @@ class PortScan
     begin
       socket = TCPSocket.new(host, port)
       out << "#{host}:#{port}#open"
-      # out << [host: {port: "1"}]
-      # puts out
-      # out
     rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT
-      # status = "closed"
       out << "#{host}:#{port}#closed"
-      # out << {"#{host}:#{port}": status="closed"}
-      # out << [host: {port: "1"}]
-      # out << 'e'
     end
   end
 end
 
 io = PortScan.new(@entries[:port_start],@entries[:port_end])
 
-# rts = []
-# rts << io.scan_target
+
+rts = io.scan_target
 # rts.each {|e|}
 # rts.inspect
 
 
 # io = PortScan.new("20",@entries[:port_end], "8.8.8.8")
 # puts rts
+# puts rts.to_s + "<<<<"
+rts.flatten!
+# puts rts
+s_out = (brick_breaker rts[0])
+puts s_out[1]
+# puts s_out[0]
 # puts " <<<< "
 # io.each {|i| puts i} # io is an object not a collection class
 
-def brick_breaker
-end
