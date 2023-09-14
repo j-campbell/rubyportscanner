@@ -58,8 +58,8 @@ class PortScan
     end
   end
 end
-puts @entries[:port_start].nil?
-puts @entries[:port_start]
+# puts @entries[:port_start].nil?
+# puts @entries[:port_start]
 io = PortScan.new(@entries[:port_start],@entries[:port_end])
 # io.scan_target
 # str_arr = []
@@ -92,15 +92,14 @@ io = PortScan.new(@entries[:port_start],@entries[:port_end])
 # io = PortScan.new(1, 1024)
 rts = []
 rts << io.scan_target
+rts.each {|e|}
+rts.inspect
+
+
+io = PortScan.new("20",@entries[:port_end], "8.8.8.8")
 puts rts
-# i = 0
-# rts.each do |e|
-#   puts e, i
-#   i += 1
-# end
-# rts.each {|k,v| puts k,v}
-# puts rts[1]
-# puts rts.join('!!')+ "<"
-# # puts tr_arr
-## J .Campbell SID : ##
-puts @entries[:port_start]
+puts " <<<< "
+# io.each {|i| puts i} # io is an object not a collection class
+
+def brick_breaker
+end
