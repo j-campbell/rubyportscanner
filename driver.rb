@@ -1,23 +1,16 @@
 # ruby port scanner code
-require 'socket'
-# require 'os'
+# j. campbell 881298169
+require 'socket' # TCP library for Ruby
 
-# def brick_breaker str
-#   str = str.split '#'
-# end
-
+# Flattens the array output from PortScan
 def brick_breaker str_in
-  # puts "debug"
-  str_in = str_in[2..-3]
-  # str_in = str_in[0]
-  # status = str_in.split('#')
-  # puts 
-  k = str_in.split('#')
-  # puts k
+  str_in = str_in[2..-3]   # strip first 2 and last 2 characters
+  k = str_in.split('#')    # 
   return k
-#   str_in[0].join()
 end
 
+# Performs a count of open ports vs closed ports
+# Creates a pretty message to append to overall output
 def port_count scan_res
   cnt = 0
   scan_res.each do |s|
@@ -26,21 +19,17 @@ def port_count scan_res
   return ">> #{scan_res.length} ports scanned :: #{cnt} port open <<"
 end
 
-
+# make output more human readable
 def prettify scan_in
   return "Scan Target :: #{scan_in[0]} - status :: #{scan_in[1]}"
 end
-
-@entries = {
-  'port_start': "20",
-  'port_end': "40",
-  'target': "192.168.0.1"
-}
 
 class PortScan
   attr_accessor :port_start, :port_end, :target
 
   # development environment -- turn off $TARGET default and change to *optional for production
+  #
+  # Initializer for PortScan Class, default to local host of no target supplied
   def initialize(port_start, port_end, target="127.0.0.1")
 
     self.port_start = port_start.to_i
@@ -48,21 +37,25 @@ class PortScan
     self.target     = target
   end
 
+  # SCAN_TARGET
+  #
+  # Inputs : none - uses class attributes
+  #
+  #
   def scan_target 
-    puts "in scan"
     str_arr = []
-    f_port, l_port = self.port_start, self.port_end
-    # puts f_port, l_port, target
-    # puts "debug mode><><"
-    
+    f_port, l_port = self.port_start, self.port_end    
     str_arr = (f_port..l_port).collect {|p| tcp_socket(self.target, p).to_s }
-
-    # puts str_arr
     return str_arr
   end
 
+  # TCP_SOCKET subroutine 
+  #
+  # Inputs : host - IP Address of target
+  #        : port - port to be scanned
+  #
+  # Checks to see if a socket will accept a TCP connection 
   def tcp_socket host, port
-    puts "socket"
     out = []
     begin
       socket = TCPSocket.new(host, port)
@@ -70,46 +63,19 @@ class PortScan
     rescue Errno::ECONNREFUSED, Errno::ETIMEDOUT
       out << "#{host}:#{port}#closed"
     end
-    puts "out"
     return out
   end
 end
 
-
-
+### Main Program Logic - called from GUI or CLI
 def run_scan # p_start, p_end, ip_target
-  puts "in driver"
-  io = PortScan.new("20", "30", "127.0.0.1")
-  puts io
-  rts = io.scan_target
-  # rts.each {|e|}
-  # rts.inspect
-
-
-  # io = PortScan.new("20",@entries[:port_end], "8.8.8.8")
-  # puts rts
-  # puts rts.to_s + "<<<<"
-  # rts.flatten!
-  # puts rts[0]
-  puts rts
-  # str_out = rts.collect {status}
-  rts_out =  rts.collect {|o| brick_breaker o}
-  cnt_str = port_count rts_out
-  rts_out2 =  rts_out.collect  {|o| prettify o}
-  rts_out2 << cnt_str
-  rts_out3 =rts_out2.join("\n")
-  puts rts_out
-  puts rts_out2
-  puts rts_out2.join.class
-  # return rts_out2.join "\n"
-  return rts_out3
+  io = PortScan.new("4", "30", "127.0.0.1")     # create PortScan Object
+  rts = io.scan_target                          # ready to scan
+  rts_out =  rts.collect {|o| brick_breaker o}  # clean up output from scan
+  cnt_str = port_count rts_out                  # count open ports
+  rts_out =  rts_out.collect  {|o| prettify o}  # make output look nice
+  rts_out << cnt_str                            # add scan summary
+  # join array elements into multiline string
+  rts_out = rts_out.join("\n")                  
+  return rts_out
 end
-
-
-# puts k =( brick_breaker (rts).each)
-# puts s_out
-# puts s_out[0]
-# puts " <<<< "
-# io.each {|i| puts i} # io is an object not a collection class
-
-
