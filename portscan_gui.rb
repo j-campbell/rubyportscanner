@@ -1,4 +1,5 @@
 require 'glimmer-dsl-libui'
+require_relative 'driver.rb'
 
 class PortScanner
   include Glimmer
@@ -13,7 +14,7 @@ class PortScanner
   end
 
   def launch
-    window("Port Scanner", 300, 600) {
+    window("Port Scanner", 400, 600) {
       margined true
       vertical_box {
         form {
@@ -41,20 +42,10 @@ class PortScanner
 
         button("Scan") {
           on_clicked do
-            s = "\
-Scanning #{@target}
-Ports #{@first_port} through #{@last_port}
-adfasdf #-------- 
-asdf
-asdfasdf
-asdfasdfasdf
-asdfasdfasdf
-asdfasdfasdfasd
-asdfasdfas
-asdfasdfasdfasdfa
-asdfasdfasdfasdfasdfasdfasdfasdf
-            "
-            puts s
+            s = run_scan
+
+            # puts s
+
             self.text_box = s
           end
         }
@@ -91,3 +82,17 @@ asdfasdfasdfasdfasdfasdfasdfasdf
 end
 
 PortScanner.new.launch
+
+#             s = "\
+# Scanning #{@target}
+# Ports #{@first_port} through #{@last_port}
+# adfasdf #-------- 
+# asdf
+# asdfasdf
+# asdfasdfasdf
+# asdfasdfasdf
+# asdfasdfasdfasd
+# asdfasdfas
+# asdfasdfasdfasdfa
+# asdfasdfasdfasdfasdfasdfasdfasdf
+#             "
